@@ -2,7 +2,7 @@ import os
 import shutil
 import re
 
-from pathlib import Path
+# from pathlib import Path
 
 def is_valid_filename(file_path):
     # File can is a str that is either an int or a str that must contain at least one digit
