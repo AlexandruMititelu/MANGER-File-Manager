@@ -4,6 +4,10 @@ import re
 
 from pathlib import Path
 
+def is_valid_filename(file_path):
+    # File can is a str that is either an int or a str that must contain at least one digit
+    return file_path.isnumeric() or any(char.isdigit() for char in file_path)
+
 # Asking user to input the folder containing all the photos
 # file_path_all_photos = input("Enter the path where all the photos are located: ")
 file_path_all_photos = "D:\Photos 12\SRVU Board 2024 Sept"
@@ -12,24 +16,27 @@ file_path_all_photos = "D:\Photos 12\SRVU Board 2024 Sept"
 # destination_path = input("Enter the path where the selected photos should be stored: ")
 destination_path = "D:\Photos 12\SRVU selected"
 
+if not os.path.exists(file_path_all_photos):
+    print(f"Error: The path '{file_path_all_photos}' does not exist.")
+    exit(1)
+
+if not os.path.exists(destination_path):
+    print(f"Error: The path '{destination_path}' does not exist.")
+    exit(1)
+
+def extract_numbers(file_name) -> str:
+    return ''.join(filter(str.isdigit, file_name))
+    
+
 # Asking user to input the parts of the filenames or numbers
-file_names_to_select = input("Enter the parts of the file names or numbers to select (separated by commas, newlines, or including 'JPG'/'jpg'): ")
-
-# Normalize the input by replacing 'JPG'/'jpg' with an empty string and splitting by commas or newlines
-file_names_to_select = re.split(r'[,\n]+', file_names_to_select)
-
-# Extract numeric parts and remove '.jpg' or '.JPG'
-file_numbers_to_select = [
-    name.strip().replace('.jpg', '').replace('.JPG', '') 
-    for name in file_names_to_select
-]
-
-# file_numbers_to_select = [
-#     name.strip() for name in file_names_to_select
-# ]
-
-# Output the numbers from the input, separated by commas
-print(f"Selected patterns: '{', '.join(file_numbers_to_select)}'")
+# file_names_to_select = input("Enter the parts of the file names or numbers to select (separated by commas, newlines, or including 'JPG'/'jpg'): ")
+with open('input', 'r') as file:
+    file_names_to_select = list(
+        map(
+            extract_numbers, 
+            filter(is_valid_filename, file.readlines())
+        )        
+    )
 
 # Ensure the destination directory exists, create if it doesn't
 if not os.path.exists(destination_path):
@@ -37,7 +44,8 @@ if not os.path.exists(destination_path):
 
 # Copy the files that match the given patterns
 for file_name in os.listdir(file_path_all_photos):
-    for pattern in file_numbers_to_select:
+    for pattern in file_names_to_select:
+        #print(f"Checking {file_name} for pattern {pattern}")
         if pattern in file_name:
             source = os.path.join(file_path_all_photos, file_name)
             destination = os.path.join(destination_path, file_name)
