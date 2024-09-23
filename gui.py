@@ -1,5 +1,6 @@
+import customtkinter as ctk
 import tkinter as tk
-from tkinter import filedialog, scrolledtext
+from tkinter import filedialog
 import threading
 from photo_selector import copy_selected_files
 from utils import read_input_text
@@ -8,41 +9,58 @@ from data_manager import save_data, load_data
 import logging
 from pathlib import Path
 
+ctk.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
+ctk.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
+
 class PhotoSelectorGUI:
     def __init__(self, master):
         self.master = master
         master.title("Photo Selector")
+        master.geometry("800x600")
 
         # Load saved data
         saved_data = load_data()
 
+        # Create main frame
+        self.main_frame = ctk.CTkFrame(master)
+        self.main_frame.pack(fill=tk.BOTH, expand=True, padx=20, pady=20)
+
         # Source Folder Path
-        tk.Label(master, text="Source Folder Path:").grid(row=0, column=0, sticky="w")
-        self.source_path = tk.Entry(master, width=50)
+        self.source_frame = ctk.CTkFrame(self.main_frame)
+        self.source_frame.pack(fill=tk.X, padx=10, pady=10)
+        ctk.CTkLabel(self.source_frame, text="Source Folder:").pack(side=tk.LEFT, padx=5)
+        self.source_path = ctk.CTkEntry(self.source_frame, width=400)
+        self.source_path.pack(side=tk.LEFT, expand=True, fill=tk.X, padx=5)
         self.source_path.insert(0, saved_data['source_path'])
-        self.source_path.grid(row=0, column=1)
-        tk.Button(master, text="Browse", command=self.browse_source).grid(row=0, column=2)
+        ctk.CTkButton(self.source_frame, text="Browse", command=self.browse_source, width=100).pack(side=tk.RIGHT, padx=5)
 
         # Target Folder Path
-        tk.Label(master, text="Target Folder Path:").grid(row=1, column=0, sticky="w")
-        self.target_path = tk.Entry(master, width=50)
+        self.target_frame = ctk.CTkFrame(self.main_frame)
+        self.target_frame.pack(fill=tk.X, padx=10, pady=10)
+        ctk.CTkLabel(self.target_frame, text="Target Folder:").pack(side=tk.LEFT, padx=5)
+        self.target_path = ctk.CTkEntry(self.target_frame, width=400)
+        self.target_path.pack(side=tk.LEFT, expand=True, fill=tk.X, padx=5)
         self.target_path.insert(0, saved_data['target_path'])
-        self.target_path.grid(row=1, column=1)
-        tk.Button(master, text="Browse", command=self.browse_target).grid(row=1, column=2)
+        ctk.CTkButton(self.target_frame, text="Browse", command=self.browse_target, width=100).pack(side=tk.RIGHT, padx=5)
 
         # Input Text
-        tk.Label(master, text="Input:").grid(row=2, column=0, sticky="w")
-        self.input_text = tk.Text(master, height=10, width=50)
+        self.input_frame = ctk.CTkFrame(self.main_frame)
+        self.input_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        ctk.CTkLabel(self.input_frame, text="Input:").pack(anchor=tk.W, padx=5, pady=5)
+        self.input_text = ctk.CTkTextbox(self.input_frame, height=150)
+        self.input_text.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
         self.input_text.insert(tk.END, saved_data['input_text'])
-        self.input_text.grid(row=2, column=1, columnspan=2)
 
         # Run Button
-        self.run_button = tk.Button(master, text="Run", command=self.run_script)
-        self.run_button.grid(row=3, column=1)
+        self.run_button = ctk.CTkButton(self.main_frame, text="Run", command=self.run_script, height=40)
+        self.run_button.pack(pady=20)
 
         # Log Output
-        self.log_output = scrolledtext.ScrolledText(master, height=10, width=70, state='disabled')
-        self.log_output.grid(row=4, column=0, columnspan=3)
+        self.log_frame = ctk.CTkFrame(self.main_frame)
+        self.log_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        ctk.CTkLabel(self.log_frame, text="Log:").pack(anchor=tk.W, padx=5, pady=5)
+        self.log_output = ctk.CTkTextbox(self.log_frame, height=150, state='disabled')
+        self.log_output.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
 
         # Configure logging
         setup_logger(self.log_output)
@@ -61,7 +79,7 @@ class PhotoSelectorGUI:
         self.target_path.insert(0, folder_selected)
 
     def run_script(self):
-        self.run_button.config(state='disabled')
+        self.run_button.configure(state='disabled')
         threading.Thread(target=self._run_script_thread, daemon=True).start()
 
     def _run_script_thread(self):
@@ -82,7 +100,7 @@ class PhotoSelectorGUI:
         except Exception as e:
             logging.error(f"An unexpected error occurred: {e}")
         finally:
-            self.master.after(0, lambda: self.run_button.config(state='normal'))
+            self.master.after(0, lambda: self.run_button.configure(state='normal'))
 
     def on_closing(self):
         # Save data before closing
