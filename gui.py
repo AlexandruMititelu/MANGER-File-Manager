@@ -14,6 +14,8 @@ class PhotoSelectorGUI:
         master.setWindowTitle("Photo Selector")
         master.setGeometry(100, 100, 800, 600)
 
+
+
         # Load saved data
         saved_data = load_data()
 
