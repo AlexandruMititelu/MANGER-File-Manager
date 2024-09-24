@@ -18,3 +18,5 @@ config.ini
 # Ignore build artifacts
 build/
 dist/
+
+user_data.json

@@ -1,10 +1,11 @@
-from PySide6 import QtWidgets
+import customtkinter as ctk
 from gui import PhotoSelectorGUI
+
 import sys
+print(sys.executable)
+print(sys.path)
 
 if __name__ == "__main__":
-    app = QtWidgets.QApplication(sys.argv)
-    main_window = QtWidgets.QMainWindow()
-    gui = PhotoSelectorGUI(main_window)
-    main_window.show()
-    sys.exit(app.exec())
+    root = ctk.CTk()
+    gui = PhotoSelectorGUI(root)
+    root.mainloop()
