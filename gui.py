@@ -19,7 +19,7 @@ class PhotoSelectorGUI:
         self.master = master  # Reference to the main window
         master.title("MANGER - sort your files")  # Set the window title
         master.geometry("800x600")  # Set the window size
-        master.iconbitmap("img/app_icon.ico")
+        # master.iconbitmap("img/app_icon.ico")
         
 
         # Load saved data
