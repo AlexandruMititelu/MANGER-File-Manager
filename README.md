@@ -1,8 +1,8 @@
 
-MANGER is a simple and modern file manager that helps me manage the photos that photography clients send me. 
+<b>MANGER</b> is a simple and modern file manager that helps me <b>manage the photos </b>that photography clients send me. 
 
 
-Example: Out of 1000 photos, my clients select 400 photos. Not RAW files, but file-names. 
+<b>USE CASES</b>: Out of 1000 photos, my clients select 400 photos. Not RAW files, but file-names. 
 Of course, they will not be: 
 -> ordered
 -> individually handpicked in Lightroom
@@ -22,5 +22,5 @@ This is my first personal project that I use on a regular basis.
 pyinstaller --onefile -w --icon=img/app_icon.ico --name "MANGER - sort your files" main.py
 
 
-TODO:
+<b>TODO</b>:
 - Add icons, add name, create a installer + .app for mac
