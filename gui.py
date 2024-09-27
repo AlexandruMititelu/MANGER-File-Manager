@@ -8,6 +8,7 @@ from logger import setup_logger  # Import logger setup function
 from data_manager import save_data, load_data  # Import functions for saving and loading user data
 import logging  # Used for logging messages
 from pathlib import Path  # For handling filesystem paths
+import os  # Import os to handle file operations
 
 ctk.set_appearance_mode("System")  # Set the appearance mode of the GUI
 ctk.set_default_color_theme("blue")  # Set the default color theme
@@ -109,4 +110,9 @@ class PhotoSelectorGUI:
             self.target_path.get(),  # Save the target path
             self.input_text.get("1.0", tk.END)  # Save the input text
         )
+       # delete_user_data_file()  # Delete the user data file
         self.master.destroy()  # Close the application
+
+def delete_user_data_file():
+    if os.path.exists('user_data.json'):  # Check if the file exists
+        os.remove('user_data.json')  # Delete the file

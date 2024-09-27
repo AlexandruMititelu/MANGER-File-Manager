@@ -1,7 +1,14 @@
 import json  # Standard library for JSON serialization and deserialization
+import os  # Import os to handle file operations
 from pathlib import Path  # For handling filesystem paths
 
-DATA_FILE = 'user_data.json'  # Define the filename for storing user data
+DATA_FILE = os.path.join(os.path.dirname(__file__), 'user_data.json')
+
+def hide_file(file_path: str):
+    if os.name == 'nt':  # For Windows
+        os.system(f'attrib +h "{file_path}"')  # Hide the file on Windows
+    else:  # For Unix/Linux/Mac
+        os.system(f'chflags hidden "{file_path}"')  # Hide the file on Unix-like systems
 
 def save_data(source_path: str, target_path: str, input_text: str):
     data = {
@@ -11,6 +18,7 @@ def save_data(source_path: str, target_path: str, input_text: str):
     }
     with open(DATA_FILE, 'w') as f:  # Open the data file for writing
         json.dump(data, f)  # Write the data to the file
+    hide_file(DATA_FILE)  # Hide the file after saving
 
 def load_data():
     if Path(DATA_FILE).exists():  # Check if the data file exists
