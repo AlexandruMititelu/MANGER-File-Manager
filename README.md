@@ -16,7 +16,7 @@ Influenced by 37Signals and their product line ONCE. I like their minimalistic a
 This is my first personal project that I use on a regular basis. 
 
 
-- To just get the last working version of the app:, go to the dist folder, copy it to your machine, and run it. - WINDOWS ONLY FOR NOW. 
+- To just get the last working version of the app:, go to DOWNLOAD_HERE folder, copy it to your machine, and run it. - WINDOWS ONLY FOR NOW. 
 
 - TO build the exe:
 pyinstaller --onefile -w --icon=img/app_icon.ico --name "MANGER - sort your files" main.py

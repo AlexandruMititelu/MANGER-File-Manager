@@ -19,5 +19,8 @@ config.ini
 build/
 dist/
 
+# Ignore user data
 user_data.json
 
+# Ignore spec files
+*.spec
