@@ -8,3 +8,5 @@ def extract_numbers(file_name: str) -> str:
 
 def read_input_text(input_text: str) -> Set[str]:
     return set(map(extract_numbers, filter(is_valid_filename, input_text.split('\n'))))  # Process input text and return a set of valid filenames
+
+    

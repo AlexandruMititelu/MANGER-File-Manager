@@ -2,13 +2,14 @@ import customtkinter as ctk  # Custom tkinter for enhanced GUI elements
 import tkinter as tk  # Standard tkinter library for GUI
 from tkinter import filedialog  # Provides dialogs for file selection
 import threading  # Allows running tasks in separate threads
-from photo_selector import copy_selected_files  # Import the file copying function
-from utils import read_input_text  # Import utility function to read input text
-from logger import setup_logger  # Import logger setup function
-from data_manager import save_data, load_data  # Import functions for saving and loading user data
 import logging  # Used for logging messages
 from pathlib import Path  # For handling filesystem paths
 import os  # Import os to handle file operations
+
+from photo_selector import copy_selected_files  # Import the file copying function
+from utils import read_input_text  # I
+from data_manager import save_data, load_data  # Import functions for saving and loading user datamport utility function to read input text
+from logger import setup_logger  # Import logger setup function
 
 ctk.set_appearance_mode("System")  # Set the appearance mode of the GUI
 ctk.set_default_color_theme("blue")  # Set the default color theme
@@ -18,7 +19,8 @@ class PhotoSelectorGUI:
         self.master = master  # Reference to the main window
         master.title("MANGER - sort your files")  # Set the window title
         master.geometry("800x600")  # Set the window size
-        # master.iconbitmap("img/app_icon.ico")
+        master.iconbitmap("img/app_icon.ico")
+        
 
         # Load saved data
         saved_data = load_data()  # Load previously saved user data
@@ -66,6 +68,28 @@ class PhotoSelectorGUI:
 
         # Configure logging
         setup_logger(self.log_output)  # Set up logging to the log output textbox
+
+        # Add footer with links
+        self.footer_frame = ctk.CTkFrame(self.main_frame)  # Frame for footer
+        self.footer_frame.pack(side=tk.BOTTOM, pady=10)  # Position at the bottom
+
+        self.footer_label = ctk.CTkLabel(self.footer_frame, text="by ", font=("Arial", 10, "italic"))  # Italic text
+        self.footer_label.pack(side=tk.LEFT)
+
+        self.linkedin_label = ctk.CTkLabel(self.footer_frame, text="@AlexSharesTheView", font=("Arial", 10, "italic"), text_color="gray", cursor="hand2")  # LinkedIn link
+        self.linkedin_label.pack(side=tk.LEFT)
+        self.linkedin_label.bind("<Button-1>", lambda e: os.startfile("https://github.com/AlexandruMititelu"))  # Open LinkedIn
+
+        self.github_label = ctk.CTkLabel(self.footer_frame, text=" | Github", font=("Arial", 10, "italic"), text_color="gray", cursor="hand2")  # GitHub link
+        self.github_label.pack(side=tk.LEFT)
+        self.github_label.bind("<Button-1>", lambda e: os.startfile("https://www.linkedin.com/in/alexandru-mititelu-984141252/"))  # Open GitHub
+
+        # Change color on hover
+        self.linkedin_label.bind("<Enter>", lambda e: self.linkedin_label.configure(text_color="yellow"))  # Hover effect for LinkedIn
+        self.linkedin_label.bind("<Leave>", lambda e: self.linkedin_label.configure(text_color="gray"))  # Reset color
+
+        self.github_label.bind("<Enter>", lambda e: self.github_label.configure(text_color="yellow"))  # Hover effect for GitHub
+        self.github_label.bind("<Leave>", lambda e: self.github_label.configure(text_color="gray"))  # Reset color
 
         # Bind the closing event
         master.protocol("WM_DELETE_WINDOW", self.on_closing)  # Handle window close event
