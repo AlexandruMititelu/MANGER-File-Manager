@@ -19,5 +19,8 @@ This is my first personal project that I use on a regular basis.
 - To just get the last working version of the app:, go to the dist folder, copy it to your machine, and run it. - WINDOWS ONLY FOR NOW. 
 
 - TO build the exe:
-pyinstaller --onefile -w --icon=img/app_icon.png --name "MANGER - sort your files" main.py
+pyinstaller --onefile -w --icon=img/app_icon.ico --name "MANGER - sort your files" main.py
 
+
+TODO:
+- Add icons, add name, create a installer + .app for mac
