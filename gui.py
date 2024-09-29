@@ -22,7 +22,6 @@ class PhotoSelectorGUI:
         # master.iconbitmap("img/app_icon.ico")
         
 
-        # Load saved data
         saved_data = load_data()  # Load previously saved user data
 
         # Create main frame
@@ -135,7 +134,7 @@ class PhotoSelectorGUI:
             self.target_path.get(),  # Save the target path
             self.input_text.get("1.0", tk.END)  # Save the input text
         )
-       # delete_user_data_file()  # Delete the user data file
+        delete_user_data_file()  # Delete the user data file
         self.master.destroy()  # Close the application
 
 def delete_user_data_file():
