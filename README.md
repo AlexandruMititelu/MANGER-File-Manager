@@ -11,7 +11,7 @@ Of course, they will have to be:
 </ul>
 
 <br>
-MANGER solves this problem. It takes the photos, even if the naming is wrong, as long as they have the photo number, and copies them from the 1k photo folder to another folder, renaming them back to original.
+MANGER solves this problem. It takes the photos, even if the naming is wrong, as long as they have the photo number, and copies them from the source  folder to the target folder, creating it if it does noes exist and renaming them back to original.
 
 <br>
 Influenced by 37Signals and their product line ONCE. I like their minimalistic approach. And "single use" apps that make you do less, not more. 
