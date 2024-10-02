@@ -21,6 +21,4 @@ This is my first personal project that I use on a regular basis.
 - TO build the exe:
 pyinstaller --onefile -w --icon=img/app_icon.ico --name "MANGER - sort your files" main.py
 
-
-<b>TODO</b>:
-- Add icons, add name, create a installer + .app for mac
+###If you want to contribute, look at the TODO.md file
