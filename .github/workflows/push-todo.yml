@@ -1,0 +1,43 @@
+name: Push TODO.md changes
+
+# Trigger the workflow on any push or pull request that involves the TODO.md file
+on:
+  push:
+    paths:
+      - 'TODO.md'
+  pull_request:
+    paths:
+      - 'TODO.md'
+
+jobs:
+  push-todo-changes:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout the code
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Step 2: Configure Git credentials using GitHub token
+    - name: Setup Git
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+
+    # Step 3: Fetch the main branch
+    - name: Fetch main branch
+      run: git fetch origin main
+
+    # Step 4: Create commit if there are changes in TODO.md
+    - name: Commit changes to TODO.md
+      run: |
+        git add TODO.md
+        git diff-index --quiet HEAD || git commit -m "Update TODO.md"
+
+    # Step 5: Push changes to the current branch
+    - name: Push changes to current branch
+      run: git push origin HEAD:${{ github.ref }}
+
+    # Step 6: Push changes to the main branch
+    - name: Push changes to main branch
+      run: git push origin HEAD:main
