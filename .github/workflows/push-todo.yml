@@ -28,8 +28,11 @@ jobs:
         git config user.email "github-actions[bot]@users.noreply.github.com"
 
     # Step 3: Pull the main branch to maintain the latest changes and avoid conflicts
-    - name: Pull main branch
-      run: git pull origin main
+    - name: Merge & pull main branch
+      run: |
+        git config pull.rebase false # We want to create a merge commit
+        git pull origin main
+
 
     # Step 4: Create commit if there are changes in TODO.md
     - name: Commit changes to TODO.md
