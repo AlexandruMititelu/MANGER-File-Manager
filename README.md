@@ -2,8 +2,8 @@
 <b>MANGER</b> is a simple and modern file manager that helps me <b>manage the photos </b>that photography clients send me. 
 
 
-<b>USE CASES</b>: Out of 1000 photos, my clients select 400 photos. Not RAW files, but file-names. 
-Of course, they will not be: 
+<b>USE CASES</b>: Out of 1000 photos, my clients select 400 photos. They send the file-names. 
+Of course, they will have to be: 
 -> ordered
 -> individually handpicked in Lightroom
 -> made sure they are the correct photos
