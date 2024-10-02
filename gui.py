@@ -11,8 +11,6 @@ from utils import read_input_text  # I
 from data_manager import save_data, load_data  # Import functions for saving and loading user datamport utility function to read input text
 from logger import setup_logger  # Import logger setup function
 
-ctk.set_appearance_mode("System")  # Set the appearance mode of the GUI
-ctk.set_default_color_theme("blue")  # Set the default color theme
 
 class PhotoSelectorGUI:
     def __init__(self, master):
